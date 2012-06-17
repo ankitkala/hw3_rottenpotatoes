@@ -13,11 +13,11 @@ end
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
-Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+#Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  flunk "Unimplemented"
-end
+  #flunk "Unimplemented"
+#end
 
 # Make it easier to express checking or unchecking several boxes at once
 #  "When I uncheck the following ratings: PG, G, R"
@@ -69,8 +69,9 @@ Given /^I check the following ratings: (.*)$/ do |rating_list|
   rating_list.split( /, / ).each do |rating| check("ratings_"+rating) end
 end
 
-Then /^I Should see "([^"]*)" before "([^"]*)"$/ do |movie1, movie2|
- # esxpress the regexp above with the code you wish you had
+Then /^I should see "([^"]*)" before "([^"]*)"$/ do |movie1, movie2|
+ assert page.body.index(movie1) < page.body.index(movie2)
+  # express the regexp above with the code you wish you had
 end
 
 
