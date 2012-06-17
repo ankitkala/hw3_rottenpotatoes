@@ -42,7 +42,4 @@ Scenario: all ratings selected
 
   Given I check the following ratings: G, PG, R, PG-13, NC-17
   When I Press "Refresh"
-  Then I Should see "The Incredibles"
-  Then I Should see "The Help"
-  Then I Should see "Aladdin"
-  Then I Should see "Amelie"
+  Then I should see all of the movies

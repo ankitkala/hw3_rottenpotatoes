@@ -35,14 +35,6 @@ end
 When /^I Press "([^"]*)"$/ do |button|
   click_button(button)
 end
-#When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
-
-#	rating_list.split( /, / ).each do |rating| check(rating)
-
-  # HINT: use String#split to split up the rating_list, then
-  #   iterate over the ratings and reuse the "When I check..." or
-  #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-#end
 
 Then /^I Should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
@@ -61,22 +53,22 @@ Then /^I Should not see "([^"]*)"$/ do |text|
 end
  
 
-Given /^I uncheck the following ratings: (.*)$/ do |rating_list|
-  rating_list.split( /, / ).each do |rating| uncheck("ratings_"+rating) end
+Given /^I (un)?check the following ratings: (.*)$/ do |un,rating_list|
+  rating_list.split( /, / ).each do |rating| un ? uncheck("ratings_"+rating) : check("ratings_"+rating) end
 end
 
-Given /^I check the following ratings: (.*)$/ do |rating_list|
-  rating_list.split( /, / ).each do |rating| check("ratings_"+rating) end
-end
+#Given /^I check the following ratings: (.*)$/ do |rating_list|
+#  rating_list.split( /, / ).each do |rating| check("ratings_"+rating) end
+#end
 
 Then /^I should see "([^"]*)" before "([^"]*)"$/ do |movie1, movie2|
  assert page.body.index(movie1) < page.body.index(movie2)
   # express the regexp above with the code you wish you had
 end
 
+Then /^I should see all of the movies$/ do
+  #pending # express the regexp above with the code you wish you had
+  assert page.body.scan(/<tr>/).length == Movie.count+1
+end
 
 
-
-#Then I should see all of the movies do
- #page.all("table tr").count.should == 10#Movie.count
-#end
